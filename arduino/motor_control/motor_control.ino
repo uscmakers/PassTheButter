@@ -35,7 +35,7 @@ double abs_duration1, abs_duration2; // Speed for motor 1 and 2
 //Motor PWM
 double PWM1, PWM2; // PWM signals for motor 1 and motor 2
 
-double set1, set2 = 0; // Velocity set points for motor 1 and motor 2
+double set1 = 0, set2 = 0; // Velocity set points for motor 1 and motor 2
 double setanglespeed; // Angular speed set point
 double setspeed; // Net speed
 
@@ -65,13 +65,13 @@ char imu[] = "/imu";
 
 
 // Timers
-unsigned long timer, range_timer = 0;
+unsigned long timer = 0, range_timer = 0;
 
 double set = 0; // Setpoint speed -- I guess will be given order from ROS
 double val_output; // PWM output
 double Kp=0.6, Ki=3.8, Kd=0; // PID gains
 PID myPID1(&abs_duration1, &PWM1, &set1, Kp, Ki, Kd, DIRECT); // PID setup for motor 1
-PID myPID2(&abs_duration2, &PWM2, &set1, Kp, Ki, Kd, DIRECT); // PID setup for motor 2
+PID myPID2(&abs_duration2, &PWM2, &set2, Kp, Ki, Kd, DIRECT); // PID setup for motor 2
 boolean result1, result2; // PID control outcome
 
 void setup()
@@ -110,6 +110,7 @@ void setup()
   myPID1.SetSampleTime(50);// PID sampling every 0.05 seconds
   myPID2.SetMode(AUTOMATIC);// PID is set to automatic mode
   myPID2.SetSampleTime(50);// PID sampling every 0.05 seconds
+  timer = millis();
 }
 
 void loop()
@@ -127,7 +128,21 @@ void loop()
 
     duration1, duration2 = 0; //Count clear, wait for the next count
     }
-  timer = millis();
+  /* //TODO: make this actually enable the motors correctly.
+   * unsigned long timeDiff = millis() - timer; 
+  if (timeDiff >= 1000 && timeDiff < 2000) {
+    set1 = 30;
+    set2 = 30;
+  }
+  else if (timeDiff >= 2000 && timeDiff < 3000) {
+    set1 = -30;
+  }
+  else if (timeDiff >= 3000 && timeDiff < 4000) {
+    set2 = -30;
+  }
+  else if (timeDiff >= 4000) {
+    timer = millis();
+  }*/
   Vector normGyro = mpu.readNormalizeGyro();
   Vector normAccel = mpu.readNormalizeAccel();
   
