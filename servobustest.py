@@ -14,8 +14,44 @@ kit = ServoKit(channels=16, i2c=i2c_bus0)
 # kit[0] is the bottom servo
 # kit[1] is the top servo
 print("Done initializing")
-sweep = range(0,180)
-for degree in sweep :
-    kit.servo[0].angle=degree
-    kit.servo[1].angle=degree
-    time.sleep(0.01)
+
+def up():
+    kit.servo[0].angle=180
+    kit.servo[1].angle=180
+    kit.servo[2].angle=0
+    kit.servo[3].angle=0
+
+def down():
+    kit.servo[0].angle=0
+    kit.servo[1].angle=145
+    kit.servo[2].angle=180
+    kit.servo[3].angle=40
+
+def wave():
+    kit.servo[0].angle=180
+    kit.servo[1].angle=180
+    kit.servo[2].angle=0
+    kit.servo[3].angle=0
+    time.sleep(.5)
+    kit.servo[2].angle=40
+    kit.servo[3].angle=120
+    time.sleep(.3)
+    kit.servo[3].angle=40
+    time.sleep(.3)
+    kit.servo[3].angle=120
+    time.sleep(.3)
+    kit.servo[3].angle=40
+    time.sleep(.3)
+    kit.servo[3].angle=120
+    time.sleep(.3)
+    kit.servo[3].angle=40
+    time.sleep(.3)
+    kit.servo[3].angle=120
+    time.sleep(.3)
+
+
+
+#kit.servo[0].angle=0 #180 #smaller cw, larger ccw
+#kit.servo[1].angle=180 #smaller cw larger ccw --down setpoint at 150, straight at 105, back at 180.
+#kit.servo[3].angle=0 #100 straight 40 down
+#kit.servo[2].angle=180 #0 up 180 up
