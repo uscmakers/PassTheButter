@@ -6,8 +6,6 @@
 #include <geometry_msgs/Vector3.h> 
 #include <tf/transform_broadcaster.h>
 #include <MPU6050.h> // MPU 6050 IMU library
-#include <sensor_msgs/Range.h>
-#include "NewPing.h"
 
 MPU6050 mpu;
 
@@ -20,11 +18,11 @@ geometry_msgs::TransformStamped t2;
 tf::TransformBroadcaster broadcaster;
 
 //Encoders
-const byte encoder0pinA = 3;// A pin for motor 1
-const byte encoder0pinB = 42;// B pin for motor 1
+const byte encoder0pinA = 2;// A pin for motor 1
+const byte encoder0pinB = 4;// B pin for motor 1
 
-const byte encoder1pinA = 2;// A pin for motor 2
-const byte encoder1pinB = 48;// B pin for motor 2
+const byte encoder1pinA = 3;// A pin for motor 2
+const byte encoder1pinB = 5;// B pin for motor 2
 
 byte encoder0PinALast; // Last encoder reading for motor 1
 byte encoder1PinALast; // Last encoder reading for motor 2
@@ -47,39 +45,22 @@ int l = 0.11 ; // Robot track width (m)
 boolean Direction1; // Motor 1 direction
 boolean Direction2; // Motor 2 direction
 
-const int ENA = 8; // Motor1 output pin
-const int IN1 = 9; // Motor1 direction pin 1
-const int IN2 = 10; // Motor1 direction pin 2
+const int ENA = 6; // Motor1 output pin
+const int IN1 = 7; // Motor1 direction pin 1
+const int IN2 = 8; // Motor1 direction pin 2
 
-const int ENB = 13; // Motor2 output pin
-const int IN3 = 11; // Motor2 direction pin 1
-const int IN4 = 12; // Motor2 direction pin 2
+const int ENB = 11; // Motor2 output pin
+const int IN3 = 9; // Motor2 direction pin 1
+const int IN4 = 10; // Motor2 direction pin 2
 
 //IMU
 float yaw, yawRate,xAcc,yAcc = 0;
 float timeStep = 0.01;
 
-//Ultrasonic
-const int ult1Trig = 6;
-const int ult1Echo = 7;
-const int ult2Trig = 4;
-const int ult2Echo = 5;
-int maxLength = 15;
-NewPing Sonar1(ult1Trig, ult1Echo, maxLength);
-NewPing Sonar2(ult2Trig, ult2Echo, maxLength);
-
-sensor_msgs::Range sonar1;
-sensor_msgs::Range sonar2;
-
-ros::Publisher sonar_1("/sonar_1", &sonar1);
-ros::Publisher sonar_2("/sonar_2", &sonar2);
-
 float read1 = 0;
 float read2 = 0;
 
 char world[] = "world";
-char id1[] ="/sonar1";
-char id2[] ="/sonar2";
 char imu[] = "/imu";
 
 
@@ -97,19 +78,6 @@ void setup()
 {
   nh.initNode();
   broadcaster.init(nh); 
-  nh.advertise(sonar_1);
-  nh.advertise(sonar_2);
-  sonar1.radiation_type = sensor_msgs::Range::ULTRASOUND;
-  sonar1.field_of_view = (10.0/180.0) * 3.14;
-  sonar1.min_range = 0.0;
-  sonar1.max_range = 20.0;
-  sonar1.header.frame_id = id1;
-  sonar2.radiation_type = sensor_msgs::Range::ULTRASOUND;
-  sonar2.field_of_view = (10.0/180.0) * 3.14;
-  sonar2.min_range = 0.0;
-  sonar2.max_range = 20.0;
-  sonar2.header.frame_id = id2;
-  
 
   // Initialize MPU6050
   while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G))
@@ -173,23 +141,6 @@ void loop()
     t.transform.rotation.x = 0;
     t.header.stamp = nh.now();
     broadcaster.sendTransform(t); 
-    t2.header.frame_id = imu;
-    t2.child_frame_id = id1;
-    t2.transform.rotation.w = 1;
-    t2.transform.rotation.z = 0;
-    t2.transform.rotation.y = 0;
-    t2.transform.rotation.x = 0;
-    t2.header.stamp = nh.now();
-    broadcaster.sendTransform(t2);
-    t2.child_frame_id = id2;
-    broadcaster.sendTransform(t2);
-
-    sonar1.range = Sonar1.ping_cm();
-    sonar2.range = Sonar2.ping_cm();
-    sonar1.header.stamp = nh.now();
-    sonar2.header.stamp = nh.now();
-    sonar_1.publish(&sonar1);
-    sonar_2.publish(&sonar2);
 
     range_timer = millis();
     }
