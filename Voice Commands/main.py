@@ -3,11 +3,13 @@ import os
 import struct
 from datetime import datetime
 from threading import Thread
+from playsound import playsound
 
 import numpy as np
 import pvporcupine
 import pyaudio
 import soundfile
+
 
 
 class ButterVoice(Thread):
@@ -76,8 +78,8 @@ class ButterVoice(Thread):
                     "When this if statement is triggered," \
                     "PicoVoice is confirming that the wake word" \
                     "has been heard.  TODO: implement STT service"
-
-
+                    print('Playing the Rick and Morty theme song:')
+                    playsound('Theme.wav')
         except KeyboardInterrupt:
             print('Stopping ...')
 
