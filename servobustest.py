@@ -2,6 +2,7 @@ from adafruit_servokit import ServoKit
 import board
 import busio
 import time
+from pynput import keyboard
 
 # On the Jetson Nano
 # Bus 0 (pins 28,27) is board SCL_1, SDA_1 in the jetson board definition file
@@ -48,8 +49,6 @@ def wave():
     time.sleep(.3)
     kit.servo[3].angle=120
     time.sleep(.3)
-
-
 
 #kit.servo[0].angle=0 #180 #smaller cw, larger ccw
 #kit.servo[1].angle=180 #smaller cw larger ccw --down setpoint at 150, straight at 105, back at 180.
