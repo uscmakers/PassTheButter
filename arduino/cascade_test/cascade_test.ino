@@ -35,7 +35,7 @@ double abs_duration4 =0; // Displacement for motor 2 [rev]
 double PWM1; // PWM signals for motor 1
 double PWM2; // PWM signals for motor 2
 
-double velMax = 90; // Max velocity for motor 1 and 2 [RPM]
+double velMax = 255; // Max velocity for motor 1 and 2 [RPM]
 
 double posSet1=0; // Position set point for motor 1 [rev]
 double posSet2=0; // Position set point for motor 2 [rev]
