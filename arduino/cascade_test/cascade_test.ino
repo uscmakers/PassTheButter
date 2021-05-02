@@ -40,7 +40,7 @@ double abs_duration4 =0; // Displacement for motor 2 [rev]
 double PWM1; // PWM signals for motor 1
 double PWM2; // PWM signals for motor 2
 
-double velMax = 60; // Max velocity for motor 1 and 2 [RPM]
+double velMax = 200; // Max velocity for motor 1 and 2 [RPM]
 
 double posSet1=0; // Position set point for motor 1 [rev]
 double posSet2=0; // Position set point for motor 2 [rev]
@@ -130,8 +130,8 @@ geometry_msgs::Twist encoder2;
 ros::Subscriber <geometry_msgs::Point> sub("/cmd_pos", &subCallback);
 
 // Publisher for encoder data
-ros::Publisher encoder_1("/encoder_1", &encoder1); // Motor 1 encoder publisher
-ros::Publisher encoder_2("/encoder_2", &encoder2); // Motor 2 encoder publisher
+//ros::Publisher encoder_1("/encoder_1", &encoder1); // Motor 1 encoder publisher
+//ros::Publisher encoder_2("/encoder_2", &encoder2); // Motor 2 encoder publisher
 
 double Kp11=2, Ki11=1.1, Kd11=0; // PID gains for motor 1 speed 
 double Kp12=4, Ki12=1.4, Kd12=0; // PID gains for motor 2 speed 
@@ -146,8 +146,8 @@ void setup() {
   // Subscriber + Node intialize
   nh.initNode();
   nh.subscribe(sub);
-  nh.advertise(encoder_1);
-  nh.advertise(encoder_2);
+  //nh.advertise(encoder_1);
+  //nh.advertise(encoder_2);
 
   // Motor 1 initialize
   pinMode(IN1, OUTPUT);
@@ -236,8 +236,8 @@ void loop() {
   encoder2.angular.x = abs_duration3; // Motor 2's angular speed
 
   // Publish encoder data
-  encoder_1.publish(&encoder1);
-  encoder_2.publish(&encoder2);
+  //encoder_1.publish(&encoder1);
+  //encoder_2.publish(&encoder2);
 
   nh.spinOnce();
   delay(50);
@@ -351,14 +351,14 @@ void move_motor2(int sign2)
     }
     
      // PWM + Direction
-     if(sign2==0) // 0 -> cw
+     if(sign2==1) // 0 -> cw
      {
       analogWrite(ENB,PWM2);
       digitalWrite(IN3,HIGH);
       digitalWrite(IN4,LOW);
      }
 
-     else if(sign2==1) // 1 -> ccw
+     else if(sign2==0) // 1 -> ccw
      {
       analogWrite(ENB,PWM2);
       digitalWrite(IN3,LOW);
