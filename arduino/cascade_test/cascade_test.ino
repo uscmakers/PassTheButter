@@ -14,11 +14,11 @@ double velSet2 = 0; // Velocity set point for motor 2 [RPM]
 
 // Pins for the encoder on motor 1
 const byte encoder0pinA = 2;// A pin for motor 1
-const byte encoder0pinB = 48;// B pin for motor 1
+const byte encoder0pinB = 4;// B pin for motor 1
 
 // Pins for the encoder on motor 2
 const byte encoder1pinA = 3;// A pin for motor 2
-const byte encoder1pinB = 42;// B pin for motor 2
+const byte encoder1pinB = 5;// B pin for motor 2
 
 byte encoder0PinALast; // Last encoder reading for motor 1
 byte encoder1PinALast; // Last encoder reading for motor 2
@@ -60,14 +60,14 @@ boolean Direction1; // Motor 1 direction
 boolean Direction2; // Motor 2 direction
 
 // Motor 1 pins
-const int ENA = 8; // Motor1 output pin
-const int IN1 = 9; // Motor1 direction pin 1
-const int IN2 = 10; // Motor1 direction pin 2
+const int ENA = 6; // Motor1 output pin
+const int IN1 = 7; // Motor1 direction pin 1
+const int IN2 = 8; // Motor1 direction pin 2
 
 // Motor 2 pins
-const int ENB = 13; // Motor2 output pin
-const int IN3 = 11; // Motor2 direction pin 1
-const int IN4 = 12; // Motor2 direction pin 2
+const int ENB = 11; // Motor2 output pin
+const int IN3 = 9; // Motor2 direction pin 1
+const int IN4 = 10; // Motor2 direction pin 2
 
 // Callback function that gives velocity and position input;
 void subCallback(const geometry_msgs::Point& cmd_pos){
@@ -351,14 +351,14 @@ void move_motor2(int sign2)
     }
     
      // PWM + Direction
-     if(sign2==1) // 0 -> cw
+     if(sign2==0) // 0 -> cw
      {
       analogWrite(ENB,PWM2);
       digitalWrite(IN3,HIGH);
       digitalWrite(IN4,LOW);
      }
 
-     else if(sign2==0) // 1 -> ccw
+     else if(sign2==1) // 1 -> ccw
      {
       analogWrite(ENB,PWM2);
       digitalWrite(IN3,LOW);
