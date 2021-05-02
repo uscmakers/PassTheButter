@@ -2,7 +2,6 @@ from adafruit_servokit import ServoKit
 import board
 import busio
 import time
-from pynput import keyboard
 
 # On the Jetson Nano
 # Bus 0 (pins 28,27) is board SCL_1, SDA_1 in the jetson board definition file
