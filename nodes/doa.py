@@ -1,14 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 from geometry_msgs.msg import Point
-from tuning import Tuning
+from pass_butter.tuning import Tuning
 import usb.core
 import usb.util
 import time
 
 def listen():
-
     pub = rospy.Publisher('/cmd_pos', Point, queue_size = 0)
     rospy.init_node('controller')
     rospy.loginfo("Started listening...")
@@ -24,9 +23,9 @@ def listen():
             angleDiff = origin - Mic_tuning.direction
             voiceDetected = Mic_tuning.is_voice()
             if(voiceDetected):
-                angleCommand = (angleDiff/1.1)*(0.9/81)
-                pub(0.0, 0.0, angleCommand)
-                break
+                angleCommand = -(angleDiff)*(0.9/90)
+                pub.publish(0.0, 0.0, angleCommand)
+                rospy.sleep(10.0)
 
 if __name__ == '__main__':
     try:
