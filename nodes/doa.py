@@ -20,14 +20,13 @@ def listen():
  
     if(dev):
         Mic_tuning = Tuning(dev)
-        angleDiff = origin - Mic_tuning.direction
         while(True):
+            angleDiff = origin - Mic_tuning.direction
             voiceDetected = Mic_tuning.is_voice()
             if(voiceDetected):
-                try:
-                    angleCommand = (angleDiff/1.1)*(0.9/81)
-                    pub(0.0, 0.0, angleCommand)
-                    break
+                angleCommand = (angleDiff/1.1)*(0.9/81)
+                pub(0.0, 0.0, angleCommand)
+                break
 
 if __name__ == '__main__':
     try:
