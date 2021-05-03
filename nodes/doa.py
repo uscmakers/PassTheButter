@@ -16,14 +16,14 @@ def listen():
     dev = usb.core.find(idVendor=0x2886, idProduct=0x0018)
 
     ## use the test file to determine this
-    origin = 0
+    origin = 150
  
-    if dev:
+    if(dev):
         Mic_tuning = Tuning(dev)
         angleDiff = origin - Mic_tuning.direction
-        while True:
+        while(True):
             voiceDetected = Mic_tuning.is_voice()
-            if voiceDetected:
+            if(voiceDetected):
                 try:
                     angleCommand = (angleDiff/1.1)*(0.9/81)
                     pub(0.0, 0.0, angleCommand)
