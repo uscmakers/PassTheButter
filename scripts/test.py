@@ -7,10 +7,10 @@ dev = usb.core.find(idVendor=0x2886, idProduct=0x0018)
  
 if dev:
     Mic_tuning = Tuning(dev)
-    print Mic_tuning.direction
-    while True:
+    print(Mic_tuning.direction)
+    while(True):
         try:
-            print Mic_tuning.direction
+            print(Mic_tuning.direction)
             time.sleep(1)
-        except KeyboardInterrupt:
+        except(KeyboardInterrupt):
             break
