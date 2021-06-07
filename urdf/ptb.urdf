@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<robot name="test_robot">
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.5 0.3 0.05"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.085"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <link name="lfwheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.008" radius="0.046"/>
+      </geometry>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="base_to_lfwheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="lfwheel"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <origin xyz=".2 0.16 0.046" rpy="0 0 0"/>
+  </joint>
+  
+
+ <link name="lbwheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.008" radius="0.046"/>
+      </geometry>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="base_to_lbwheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="lbwheel"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <origin xyz="-.2 0.16 0.046" rpy="0 0 0"/>
+  </joint>
+  
+
+  <link name="rfwheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.008" radius="0.046"/>
+      </geometry>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="base_to_rfwheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="rfwheel"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <origin xyz= ".2 -0.16 0.046" rpy="0 0 0"/>
+  </joint>
+
+ <link name="rbwheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.008" radius="0.046"/>
+      </geometry>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="base_to_rbwheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="rbwheel"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <origin xyz="-.2 -0.16 0.046" rpy="0 0 0"/>
+  </joint>
+
+  <link name="post">
+    <visual>
+      <geometry>
+        <box size=".03 .03 .4"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .2"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="post_to_chassis" type="fixed">
+    <parent link="base_link"/>
+    <child link="post"/>
+    <origin xyz=".2 0 .1" rpy="0 0 0"/>
+  </joint>
+ 
+  <link name="cross">
+    <visual>
+      <geometry>
+        <box size=".03 .3 .03"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="cross_to_post" type="prismatic">
+    <parent link="post"/>
+    <child link="cross"/>
+    <axis xyz="0 0 1"/>
+     <limit effort="1000.0" lower="-.2" upper="0" velocity="0.5"/>
+    <origin xyz="0 0 .3" rpy="0 0 0"/>
+  </joint>
+
+
+
+  <link name="upper_arm_l">
+    <visual>
+      <geometry>
+        <box size=".15 .03 .03"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz=".05 0 0"/>
+      <material name="white">
+        <color rgba="0 0 0 0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="upper_arm_l_to_cross" type="revolute">
+    <parent link="cross"/>
+    <child link="upper_arm_l"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="0.0" upper="-0.7" velocity="0.5"/>
+    <origin xyz="0 .17 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="forearm_l">
+    <visual>
+      <geometry>
+        <box size=".15 .03 .03"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.06 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="forearm_l_to_upper_arm_l" type="revolute">
+    <parent link="upper_arm_l"/>
+    <child link="forearm_l"/>
+    <axis xyz="0 1 0"/>
+   <limit effort="1000.0" lower="0.0" upper="-0.7" velocity="0.5"/>
+    <origin xyz=".1 .035 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="upper_arm_r">
+    <visual>
+      <geometry>
+        <box size=".15 .03 .03"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz=".05 0 0"/>
+      <material name="white">
+        <color rgba="0 0 0 0"/>
+      </material>   
+    </visual>
+  </link>
+
+  <joint name="upper_arm_r_to_cross" type="revolute">
+    <parent link="cross"/>
+    <child link="upper_arm_r"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="0.0" upper="-0.7" velocity="0.5"/>
+    <origin xyz="0 -.17 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="forearm_r">
+    <visual>
+      <geometry>
+        <box size=".15 .03 .03"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz=".06 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="forearm_r_to_upper_arm_r" type="revolute">
+    <parent link="upper_arm_r"/>
+    <child link="forearm_r"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="0.0" upper="-0.7" velocity="0.5"/>
+    <origin xyz=".1 -.035 0" rpy="0 0 0"/>
+  </joint>
+  
+</robot>
