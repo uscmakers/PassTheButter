@@ -1,6 +1,6 @@
 ![emily london logo](docs/passthebutter.jpg)
 
-The purpose of thie project is to build a robot which is capable of locating different people at a dinner table and passing butter to them when commanded. This is an idea made popular by a scene from Ricky and Morty.
+The purpose of this project is to build a robot which is capable of locating different people at a dinner table and passing butter to them when commanded. This is an idea made popular by a scene from Ricky and Morty.
 
 [Here's our showcase video](https://youtu.be/vPM-rD34ycs?t=3011) describing the project, its purpose, its design, and the current state of affairs as of Spring 2021.
 
@@ -17,11 +17,11 @@ Full documentation can be found [here](docs/). This includes the original projec
 1. [Setup circuit python on the Jetson Nano](https://learn.adafruit.com/circuitpython-libraries-on-linux-and-the-nvidia-jetson-nano/initial-setup)
 1. Install ROS Melodic
 1. Install pyaudio:
-```bash
-sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
-sudo apt-get install ffmpeg libav-tools
-sudo python3 -m pip install pyaudio
-```
+    ```bash
+    sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+    sudo apt-get install ffmpeg libav-tools
+    sudo python3 -m pip install pyaudio
+    ```
 1. Clone this repo to your ROS catkin_ws/src directory. 
 1. `python3 -m pip install -r requirements.txt`
 1. If using the wake word functionality, also do: `python3 -m pip install -r src/pass_butter/VoiceCommands/requirements.txt`
