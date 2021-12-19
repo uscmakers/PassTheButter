@@ -20,7 +20,7 @@ def listen():
     if(dev):
         Mic_tuning = Tuning(dev)
         while(True):
-            angleDiff = origin - Mic_tuning.direction
+            angleDiff = -(origin - Mic_tuning.direction)
             voiceDetected = Mic_tuning.is_voice()
             if(voiceDetected):
                 angleCommand = -(angleDiff)*(0.9/90)
